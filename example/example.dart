@@ -249,17 +249,10 @@ Future<void> errorHandlingExample(String uid) async {
 
   if (error == null) return; // success
 
+  // setDocument returns FirestoreError? — switch on its fields directly.
   switch (error) {
-    case AuthError(:final retryAfterSeconds):
-      print('Auth error — retry in ${retryAfterSeconds}s');
     case FirestoreError():
       print('Firestore error [${error.code}]: ${error.message}');
-    case NetworkError():
-      print('No network — queued for later');
-    case RemoteConfigError():
-      print('Remote Config error: ${error.message}');
-    case UnknownFirebaseError():
-      print('Unknown error: ${error.originalError}');
   }
 }
 
